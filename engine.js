@@ -8,7 +8,6 @@ const STAGE_MAP = {
   GROUP_STAGE: "GROUP",
   LAST_32: "R32",
   ROUND_OF_32: "R32",
-  PLAY_OFF_ROUND: "R32",
   LAST_16: "R16",
   ROUND_OF_16: "R16",
   QUARTER_FINALS: "QF",
@@ -149,17 +148,20 @@ function computeState(config, rawMatches) {
     r.matches.push({ ...m, _resultLabel: label });
   }
 
-  // qualification: any team appearing in an R32 fixture
+  // qualification: any team appearing in an R32 fixture.
+  // The feed contains the full tournament skeleton from day one, so R32
+  // fixtures exist as empty placeholders long before the draw is known.
+  // Only a fixture with real team names counts, and elimination is only
+  // inferred once the draw is essentially complete (32 named teams).
   const r32Teams = new Set();
-  let r32DrawExists = false;
   for (const m of matches) {
     const stage = STAGE_MAP[m.stage];
     if (stage === "R32") {
-      r32DrawExists = true;
       if (m.homeTeam && m.homeTeam.name) r32Teams.add(norm(m.homeTeam.name));
       if (m.awayTeam && m.awayTeam.name) r32Teams.add(norm(m.awayTeam.name));
     }
   }
+  const r32DrawComplete = r32Teams.size >= 32;
   for (const key of r32Teams) {
     const o = ownerOf(key);
     const ts = teamState.get(key);
@@ -310,8 +312,9 @@ function computeState(config, rawMatches) {
     enriched.push(em);
   }
 
-  // group elimination: once the R32 draw exists, group teams not in it are out
-  if (r32DrawExists) {
+  // group elimination: only once the R32 draw is fully known can we say
+  // a group team that isn't in it is out
+  if (r32DrawComplete) {
     for (const [key, ts] of teamState) {
       if (ts.ref.status === "alive" && ts.ref.lastStage === "GROUP" && !r32Teams.has(key)) {
         ts.ref.status = "out";
