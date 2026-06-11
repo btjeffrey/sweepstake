@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Family World Cup 2026</title>
+  <meta name="description" content="Family World Cup sweepstake — live table, steals and rivalries." />
+
+  <!-- iPhone home-screen app -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="World Cup" />
+  <meta name="theme-color" content="#0c1512" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="icon" type="image/png" href="icon-180.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="kickoff-dot" id="liveDot"></div>
+        <h1 id="appTitle">Family World Cup</h1>
+        <button id="refreshBtn" class="refresh" aria-label="Refresh results" title="Refresh">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>
+        </button>
+      </div>
+      <div class="updated" id="updatedAt"></div>
+    </header>
+
+    <div id="banner"></div>
+
+    <main id="view" class="view"></main>
+
+    <nav class="tabbar" id="tabbar" aria-label="Sections">
+      <button data-tab="table" class="tab active">
+        <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
+        <span>Table</span>
+      </button>
+      <button data-tab="matches" class="tab">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 2.2-1.1 3.6h-3.8L9 9.2 12 7zM12 3v4M5 8l4 1.2M19 8l-4 1.2M7 19l2.4-2.8M17 19l-2.4-2.8"/></svg>
+        <span>Matches</span>
+      </button>
+      <button data-tab="steals" class="tab">
+        <svg viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+        <span>Steals</span>
+      </button>
+      <button data-tab="rivalry" class="tab">
+        <svg viewBox="0 0 24 24"><path d="M14.5 4.5L19 9l-9.5 9.5L5 19l.5-4.5 9-10zM5 19l-1.5 1.5M16 3l5 5"/><path d="M9.5 4.5L5 9l9.5 9.5L19 19l-.5-4.5-9-10zM19 19l1.5 1.5M8 3L3 8"/></svg>
+        <span>Rivalry</span>
+      </button>
+      <button data-tab="squads" class="tab">
+        <svg viewBox="0 0 24 24"><path d="M9 3h6l3 3-2.5 2.5L15 8v13H9V8L8.5 8.5 6 6l3-3z"/></svg>
+        <span>Squads</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="sheet" class="sheet hidden" role="dialog" aria-modal="true">
+    <div class="sheet-backdrop" id="sheetBackdrop"></div>
+    <div class="sheet-card" id="sheetCard"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="sample-data.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

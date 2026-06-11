@@ -1,0 +1,12 @@
+{
+  "name": "Family World Cup 2026",
+  "short_name": "World Cup",
+  "display": "standalone",
+  "background_color": "#0c1512",
+  "theme_color": "#0c1512",
+  "start_url": "/",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
