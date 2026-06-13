@@ -41,7 +41,7 @@ window.CONFIG = {
       ],
     },
     {
-      name: "Itziar",
+      name: "Itzí",
       teams: [
         { tier: 1, team: "Spain" },
         { tier: 2, team: "Morocco" },
