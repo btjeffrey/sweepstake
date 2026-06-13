@@ -111,11 +111,20 @@
 
   /* ---------- views ---------- */
   function renderTable() {
+    const topScore = state.table.length ? state.table[0].points : 0;
+    const scoring = topScore !== 0;
+    const crown = (fill) =>
+      `<svg class="crown" viewBox="0 0 24 18" width="22" height="17" aria-hidden="true">` +
+      `<path d="M2 5l4 4 6-7 6 7 4-4-2 11H4L2 5z" fill="${fill}" stroke="rgba(0,0,0,0.25)" stroke-width="0.6" stroke-linejoin="round"/>` +
+      `<circle cx="2" cy="5" r="1.6" fill="${fill}"/><circle cx="22" cy="5" r="1.6" fill="${fill}"/>` +
+      `<circle cx="12" cy="2" r="1.6" fill="${fill}"/></svg>`;
+    const CROWNS = { 1: "var(--gold)", 2: "var(--silver)", 3: "var(--bronze)" };
     const rows = state.table.map((p) => {
+      const medal = scoring && CROWNS[p.rank] ? p.rank : 0;
       const stealNet = p.stealsFor - p.stealsAgainst;
       return `
-        <div class="trow ${p.rank === 1 ? "leader" : ""}" data-squad="${p.index}">
-          <div class="rank">${p.rank === 1 ? "👑" : p.rank}</div>
+        <div class="trow ${medal ? "podium podium-" + medal : ""}" data-squad="${p.index}">
+          <div class="rank">${medal ? crown(CROWNS[medal]) : p.rank}</div>
           <div class="who">
             <div class="name">${esc(p.name)}</div>
             <div class="sub">

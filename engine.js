@@ -326,7 +326,11 @@ function computeState(config, rawMatches) {
   const table = [...players].sort(
     (a, b) => b.points - a.points || b.stealsFor - a.stealsFor || a.name.localeCompare(b.name)
   );
-  table.forEach((p, i) => (p.rank = i + 1));
+  // shared ranking: players level on points get the same rank (so a tie at
+  // the top shares the crown). steals only decide display order, not rank.
+  table.forEach((p, i) => {
+    p.rank = i > 0 && table[i - 1].points === p.points ? table[i - 1].rank : i + 1;
+  });
 
   // rivalry grid as matrix
   const grid = Array.from({ length: n }, () => Array(n).fill(null));
