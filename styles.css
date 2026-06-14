@@ -213,6 +213,17 @@ h1 {
 }
 .match .footnote .steal-note { color: var(--amber); font-weight: 600; }
 .match .footnote .freehit { color: var(--draw); font-style: italic; }
+.match .highlights {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 9px;
+  padding: 6px 12px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--pitch);
+  color: var(--chalk); text-decoration: none;
+  font-size: 12.5px; font-weight: 600;
+}
+.match .highlights svg { color: #ff4d4d; }
+.match .highlights:active { transform: scale(0.96); }
 .match .detail {
   margin-top: 8px; font-family: "IBM Plex Mono", monospace;
   font-size: 10.5px; color: var(--chalk-dim);

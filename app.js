@@ -181,6 +181,14 @@
       }
       if (pens) foot.push(`<span>Pens ${m.score.penalties.home}–${m.score.penalties.away}</span>`);
       if (m.overridden) foot.push(`<span>manually corrected</span>`);
+      const highlights = finishedM && m.homeTeam && m.awayTeam
+        ? `<a class="highlights" target="_blank" rel="noopener"
+             href="https://www.youtube.com/results?search_query=${encodeURIComponent(
+               m.homeTeam + " vs " + m.awayTeam + " World Cup 2026 highlights"
+             )}">
+             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+             Highlights</a>`
+        : "";
       return `
         <div class="match" data-id="${m.id}">
           <div class="stagechip">
@@ -199,6 +207,7 @@
             </div>
           </div>
           ${foot.length ? `<div class="footnote">${foot.join("")}</div>` : ""}
+          ${highlights}
           <div class="detail" hidden>match id ${m.id} — use this for resultOverrides in config.js</div>
         </div>`;
     }
@@ -236,7 +245,11 @@
       b.addEventListener("click", () => { matchFilter = b.dataset.f; renderMatches(); })
     );
     view.querySelectorAll(".match").forEach((el) =>
-      el.addEventListener("click", () => { const d = el.querySelector(".detail"); d.hidden = !d.hidden; })
+      el.addEventListener("click", (e) => {
+        if (e.target.closest(".highlights")) return; // let the link open normally
+        const d = el.querySelector(".detail");
+        d.hidden = !d.hidden;
+      })
     );
   }
 
